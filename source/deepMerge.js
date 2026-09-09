@@ -34,11 +34,11 @@ const isPlainObject = value => Object.prototype.toString.call(value) === '[objec
 const deepMerge = (source, target) => {
     const result = { ...source };
 
-    for (const [ key, value ] of Object.entries(target)) {
+    Object.entries(target).forEach(([ key, value ]) => {
         result[key] = isPlainObject(value) && isPlainObject(result[key])
             ? deepMerge(result[key], value)
             : value;
-    }
+    });
 
     return result;
 };
