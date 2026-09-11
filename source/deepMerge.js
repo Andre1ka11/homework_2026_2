@@ -29,9 +29,15 @@ const isPlainObject = value => Object.prototype.toString.call(value) === '[objec
  * // returns { a: { b: 1, c: 3 }, d: 4 }
  * deepMerge({ a: { b: 1, c: 2 } }, { a: { c: 3 }, d: 4 });
  *
+ * @throws {TypeError} если хотя бы один из аргументов не является простым объектом
+ *
  * @returns {Object}
  */
 const deepMerge = (source, target) => {
+    if (!isPlainObject(source) || !isPlainObject(target)) {
+        throw new TypeError('deepMerge: оба аргумента должны быть простыми объектами');
+    }
+
     const result = { ...source };
 
     Object.entries(target).forEach(([ key, value ]) => {
